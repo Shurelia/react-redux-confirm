@@ -1,12 +1,4 @@
-import { Actions, ConfirmActionTypes } from './actions';
-
-export interface ConfirmState {
-  onConfirm: () => any;
-  onCancel: () => any;
-  isOpen: boolean;
-  message: string;
-  options?: { [key: string]: any };
-}
+import { ConfirmState, Actions, ConfirmActionTypes } from './types';
 
 const initialState = {
   onConfirm: () => {},

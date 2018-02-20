@@ -1,3 +1,4 @@
-export { confirm, hide, ConfirmActionTypes } from './actions';
+export { confirm, hide } from './actions';
 export { reducers as confirmReducers } from './reducers';
-export { ConfirmInjectedProps, confirmModal } from './component';
+export { confirmModal } from './component';
+export { ConfirmInjectedProps, ConfirmActionTypes } from './types';

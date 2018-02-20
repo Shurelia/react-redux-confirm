@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { ApplicationState, selectConfirmModalState } from './selectors';
-import { ConfirmState } from './reducers';
+import { ConfirmState, ConfirmInjectedProps } from './types';
 import { hide } from './actions';
 
 export function confirmModal<OwnProps = {}>(
-  PassedComponent: React.ComponentClass<OwnProps>
+  PassedComponent:
+    | React.ComponentClass<OwnProps>
+    | React.StatelessComponent<OwnProps>
 ) {
-  type ConfirmModalProps = ConfirmInjectedProps & OwnProps;
-  class WrappedComponent extends React.Component<ConfirmModalProps> {
-    render() {
-      return <PassedComponent {...this.props} />;
-    }
-  }
+  const WrappedComponent = (props: ConfirmInjectedProps & OwnProps) => {
+    return <PassedComponent {...props} />;
+  };
   return connect(mapStateToProps, mapDispatchToProps, mergeProps)(
     WrappedComponent
   );
@@ -34,7 +33,6 @@ const mapDispatchToProps = (
   };
 };
 
-export type ConfirmInjectedProps = ConfirmState;
 const mergeProps = (
   fields: ConfirmModalFields,
   actions: ConfirmModalActions

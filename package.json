@@ -1,9 +1,10 @@
 {
   "name": "react-redux-confirm",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "build": "rm -rf lib && tsc -p .",
+    "dev": "rm -rf lib && tsc -w -p .",
     "prepublish": "npm run build"
   },
   "main": "lib/index.js",
