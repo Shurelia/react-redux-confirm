@@ -5,15 +5,21 @@ import {
   ConfirmActionTypes
 } from './types';
 
-export const confirm = (payload: ShowActionPayload): ShowAction => {
-  return {
-    type: ConfirmActionTypes.SHOW,
-    payload: payload
-  };
+export const ConfirmActions: ActionObject = {
+  confirm: payload => {
+    return {
+      type: ConfirmActionTypes.SHOW,
+      payload: payload
+    };
+  },
+  hide: () => {
+    return {
+      type: ConfirmActionTypes.HIDE
+    };
+  }
 };
 
-export const hide = (): HideAction => {
-  return {
-    type: ConfirmActionTypes.HIDE
-  };
-};
+export interface ActionObject {
+  confirm: (payload: ShowActionPayload) => ShowAction;
+  hide: () => HideAction;
+}

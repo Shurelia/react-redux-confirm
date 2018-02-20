@@ -1,11 +1,12 @@
-export interface ConfirmState {
+export interface ConfirmInjectedProps {
   onConfirm: () => any;
   onCancel: () => any;
   isOpen: boolean;
   message: string;
   options?: any;
 }
-export type ConfirmInjectedProps = ConfirmState;
+
+export type ConfirmState = ConfirmInjectedProps;
 
 export enum ConfirmActionTypes {
   SHOW = '@react-redux-confirm/SHOW',

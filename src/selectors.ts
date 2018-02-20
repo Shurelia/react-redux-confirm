@@ -1,4 +1,6 @@
-import { ConfirmState } from './types';
+import { ConfirmInjectedProps } from './types';
+
+export type ConfirmState = ConfirmInjectedProps;
 
 export interface ApplicationState {
   confirmModal: ConfirmState;

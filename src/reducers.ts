@@ -1,6 +1,8 @@
-import { ConfirmState, Actions, ConfirmActionTypes } from './types';
+import { ConfirmInjectedProps, Actions, ConfirmActionTypes } from './types';
 
-const initialState = {
+export type ConfirmState = ConfirmInjectedProps;
+
+const initialState: ConfirmState = {
   onConfirm: () => {},
   onCancel: () => {},
   isOpen: false,
