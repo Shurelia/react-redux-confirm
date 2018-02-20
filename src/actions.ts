@@ -6,7 +6,7 @@ export enum ConfirmActionTypes {
 export interface ShowActionPayload {
   onConfirm: () => any;
   onCancel?: () => any;
-  content?: string;
+  message?: string;
   options?: { [key: string]: any };
 }
 export interface ShowAction {

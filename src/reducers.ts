@@ -4,7 +4,7 @@ export interface ConfirmState {
   onConfirm: () => any;
   onCancel: () => any;
   isOpen: boolean;
-  content: string;
+  message: string;
   options?: { [key: string]: any };
 }
 
@@ -12,7 +12,7 @@ const initialState = {
   onConfirm: () => {},
   onCancel: () => {},
   isOpen: false,
-  content: 'Are you sure?'
+  message: 'Are you sure?'
 };
 
 export const reducers = (
