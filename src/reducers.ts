@@ -23,7 +23,7 @@ export const reducers = (
     case ConfirmActionTypes.HIDE:
       return initialState;
     case ConfirmActionTypes.SHOW:
-      return { ...initialState, ...action.payload };
+      return { ...initialState, ...action.payload, isOpen: true };
     default:
       return state;
   }
