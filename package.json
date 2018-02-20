@@ -1,0 +1,27 @@
+{
+  "name": "typescript-module-boilerplate",
+  "version": "0.0.1",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "build": "rm -rf lib && tsc -p .",
+    "prepublish": "npm run build"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "license": "MIT",
+  "files": ["lib/"],
+  "peerDependencies": {
+    "react": "^0.14.0 || >=15.0.0",
+    "react-redux": "^4.0.0 || ^5.0.0",
+    "redux": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.38",
+    "@types/react-redux": "^5.0.15",
+    "prettier": "^1.10.0",
+    "react": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "typescript": "^2.7.2"
+  }
+}
