@@ -2,7 +2,7 @@ export interface ConfirmInjectedProps {
   onConfirm: () => any;
   onCancel: () => any;
   isOpen: boolean;
-  message: string;
+  message: React.ReactNode;
   willBeDestroyed: boolean;
   options?: any;
 }
@@ -16,9 +16,9 @@ export enum ConfirmActionTypes {
 }
 
 export interface ShowActionPayload {
-  onConfirm: () => any;
+  onConfirm?: () => any;
   onCancel?: () => any;
-  message?: string;
+  message?: React.ReactNode;
   options?: any;
 }
 export interface ShowAction {

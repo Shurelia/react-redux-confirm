@@ -4,7 +4,7 @@ import { ApplicationState, selectConfirmModalState } from './selectors';
 import { ConfirmInjectedProps } from './types';
 import { ConfirmActions } from './actions';
 
-export function confirmModal<T extends {}>(
+export function withConfirm<T extends {}>(
   PassedComponent: React.ComponentType<T & ConfirmInjectedProps>
 ) {
   type MergedProps = T & ConfirmInjectedProps;

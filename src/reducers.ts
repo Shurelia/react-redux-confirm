@@ -20,9 +20,7 @@ export const reducers = (
     case ConfirmActionTypes.DESTROY:
       return initialState;
     case ConfirmActionTypes.SHOW:
-      return state.willBeDestroyed
-        ? state
-        : { ...initialState, ...action.payload, isOpen: true };
+      return { ...initialState, ...action.payload, isOpen: true };
     default:
       return state;
   }
