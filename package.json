@@ -1,6 +1,6 @@
 {
   "name": "react-redux-confirm",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "build": "rm -rf lib && tsc -p .",
