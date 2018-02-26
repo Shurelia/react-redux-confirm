@@ -3,6 +3,7 @@ export interface ConfirmInjectedProps {
   onCancel: () => any;
   isOpen: boolean;
   message: string;
+  willBeDestroyed: boolean;
   options?: any;
 }
 
@@ -10,7 +11,8 @@ export type ConfirmState = ConfirmInjectedProps;
 
 export enum ConfirmActionTypes {
   SHOW = '@react-redux-confirm/SHOW',
-  HIDE = '@react-redux-confirm/HIDE'
+  HIDE = '@react-redux-confirm/HIDE',
+  DESTROY = '@react-redux-confirm/DESTROY'
 }
 
 export interface ShowActionPayload {
@@ -26,4 +28,7 @@ export interface ShowAction {
 export interface HideAction {
   type: ConfirmActionTypes.HIDE;
 }
-export type Actions = ShowAction | HideAction;
+export interface DestroyAction {
+  type: ConfirmActionTypes.DESTROY;
+}
+export type Actions = ShowAction | HideAction | DestroyAction;

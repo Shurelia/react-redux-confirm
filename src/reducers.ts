@@ -6,7 +6,8 @@ const initialState: ConfirmState = {
   onConfirm: () => {},
   onCancel: () => {},
   isOpen: false,
-  message: 'Are you sure?'
+  message: 'Are you sure?',
+  willBeDestroyed: false
 };
 
 export const reducers = (
@@ -15,9 +16,13 @@ export const reducers = (
 ): ConfirmState => {
   switch (action.type) {
     case ConfirmActionTypes.HIDE:
+      return { ...state, isOpen: false, willBeDestroyed: true };
+    case ConfirmActionTypes.DESTROY:
       return initialState;
     case ConfirmActionTypes.SHOW:
-      return { ...initialState, ...action.payload, isOpen: true };
+      return state.willBeDestroyed
+        ? state
+        : { ...initialState, ...action.payload, isOpen: true };
     default:
       return state;
   }

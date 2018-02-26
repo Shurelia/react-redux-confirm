@@ -10,7 +10,9 @@ export function confirmModal<T extends {}>(
   type MergedProps = T & ConfirmInjectedProps;
   class WrappedComponent extends React.Component<MergedProps> {
     render() {
-      return <PassedComponent {...this.props} />;
+      return this.props.isOpen || this.props.willBeDestroyed ? (
+        <PassedComponent {...this.props} />
+      ) : null;
     }
   }
 
@@ -22,25 +24,31 @@ export function confirmModal<T extends {}>(
     dispatch: Dispatch<ApplicationState>
   ): ConfirmModalActions => {
     return {
-      hide: () => dispatch(ConfirmActions.hide())
+      dismiss: (destroyTimeout = 1000) => {
+        dispatch(ConfirmActions.hide());
+        window.setTimeout(
+          () => dispatch(ConfirmActions.destroy()),
+          destroyTimeout
+        );
+      }
     };
   };
 
   const mergeProps = (
     fields: ConfirmInjectedProps,
     actions: ConfirmModalActions,
-    ownProps: any
+    ownProps: T
   ): MergedProps => {
     return {
       ...(ownProps as any),
       ...fields,
       onCancel: () => {
         fields.onCancel();
-        actions.hide();
+        actions.dismiss();
       },
       onConfirm: () => {
         fields.onConfirm();
-        actions.hide();
+        actions.dismiss();
       }
     };
   };
@@ -55,5 +63,5 @@ export function confirmModal<T extends {}>(
 }
 
 interface ConfirmModalActions {
-  hide: () => void;
+  dismiss: (destroyTimeout?: number) => void;
 }
