@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { ApplicationState, selectConfirmModalState } from './selectors';
-import { ConfirmInjectedProps } from './types';
+import { ConfirmInjectedProps, ConfirmState } from './types';
 import { ConfirmActions } from './actions';
 
 export function withConfirm<T extends {}>(
@@ -9,6 +9,21 @@ export function withConfirm<T extends {}>(
 ) {
   type MergedProps = T & ConfirmInjectedProps;
   class WrappedComponent extends React.Component<MergedProps> {
+    destroyTimeout: number = 0;
+
+    componentWillReceiveProps(nextProps: MergedProps) {
+      if (!this.props.willBeDestroyed && nextProps.willBeDestroyed) {
+        this.destroyTimeout = window.setTimeout(
+          () => this.props.destroy(),
+          1000
+        );
+      }
+
+      if (!this.props.isOpen && nextProps.isOpen) {
+        window.clearTimeout(this.destroyTimeout);
+      }
+    }
+
     render() {
       return this.props.isOpen || this.props.willBeDestroyed ? (
         <PassedComponent {...this.props} />
@@ -16,7 +31,7 @@ export function withConfirm<T extends {}>(
     }
   }
 
-  const mapStateToProps = (state: ApplicationState): ConfirmInjectedProps => {
+  const mapStateToProps = (state: ApplicationState): ConfirmState => {
     return selectConfirmModalState(state);
   };
 
@@ -24,37 +39,33 @@ export function withConfirm<T extends {}>(
     dispatch: Dispatch<ApplicationState>
   ): ConfirmModalActions => {
     return {
-      dismiss: (destroyTimeout = 1000) => {
-        dispatch(ConfirmActions.hide());
-        window.setTimeout(
-          () => dispatch(ConfirmActions.destroy()),
-          destroyTimeout
-        );
-      }
+      hide: () => dispatch(ConfirmActions.hide()),
+      destroy: () => dispatch(ConfirmActions.destroy())
     };
   };
 
   const mergeProps = (
-    fields: ConfirmInjectedProps,
+    fields: ConfirmState,
     actions: ConfirmModalActions,
     ownProps: T
   ): MergedProps => {
     return {
       ...(ownProps as any),
       ...fields,
+      ...actions,
       onCancel: () => {
         fields.onCancel();
-        actions.dismiss();
+        actions.hide();
       },
       onConfirm: () => {
         fields.onConfirm();
-        actions.dismiss();
+        actions.hide();
       }
     };
   };
 
   return connect<
-    ConfirmInjectedProps,
+    ConfirmState,
     ConfirmModalActions,
     T,
     MergedProps,
@@ -63,5 +74,6 @@ export function withConfirm<T extends {}>(
 }
 
 interface ConfirmModalActions {
-  dismiss: (destroyTimeout?: number) => void;
+  hide: () => void;
+  destroy: () => void;
 }

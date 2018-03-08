@@ -1,6 +1,4 @@
-import { ConfirmInjectedProps, Actions, ConfirmActionTypes } from './types';
-
-export type ConfirmState = ConfirmInjectedProps;
+import { Actions, ConfirmActionTypes, ConfirmState } from './types';
 
 const initialState: ConfirmState = {
   onConfirm: () => {},
